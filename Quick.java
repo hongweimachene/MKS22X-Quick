@@ -8,8 +8,12 @@ public class Quick{
       kth = data[partition(data, 0, val -1)];
     }
     if (val < k) {
-      
+      kth = data[partition(data, val + 1, data.length -1)];
     }
+    if (val == k) {
+      kth = data[val];
+    }
+    return kth;
   }
   /*Modify the array such that:
  *1. Only the indices from start to end inclusive are considered in range
@@ -52,5 +56,10 @@ public class Quick{
      }
    }
    return index;
+ }
+ public static void main(String[] args) {
+   int[] ary = new int[] { 2, 10, 15, 23, 0,  5};
+
+   System.out.println(quickSelect(ary, 2));
  }
 }
