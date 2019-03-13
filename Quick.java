@@ -4,15 +4,15 @@ public class Quick{
   public static int quickSelect(int[] data, int k) {
     int kth = 0;
     int val = partition(data, 0, data.length-1);
-    if (val > k) {
-      kth = data[partition(data, 0, val -1)];
+    while (val != k) {
+      if (val > k) {
+        val = partition(data, 0, val -1);
+      }
+      if (val < k) {
+        val = partition(data, val + 1, data.length -1);
+      }
     }
-    if (val < k) {
-      kth = data[partition(data, val + 1, data.length -1)];
-    }
-    if (val == k) {
-      kth = data[val];
-    }
+    kth = data[val];
     return kth;
   }
   /*Modify the array such that:
@@ -57,9 +57,28 @@ public class Quick{
    }
    return index;
  }
- public static void main(String[] args) {
-   int[] ary = new int[] { 2, 10, 15, 23, 0,  5};
 
+ public static void quickSort(int[] data) {
+   quickSort(data, 0, data.length-1);
+ }
+
+ private static void quickSort(int[] data, int lo, int hi) {
+   if (lo >= hi) {
+     return;
+   }
+   int pivot = partition(data, lo, hi);
+   quickSort(data, lo, pivot - 1);
+   quickSort(data, pivot + 1, hi);
+ }
+ 
+ public static void main(String[] args) {
+   int[] ary1 = new int[] {8, 6 , 7 , 5, 3 ,0, 9};
+   System.out.println(partition(ary1, 0, ary1.length-1));
+   for (int i = 0; i < ary1.length; i++) {
+     System.out.print(ary1[i]+ " ");
+   }
+   System.out.println(" ");
+   int[] ary = new int[] { 2, 10, 15, 23, 0,  5};
    System.out.println(quickSelect(ary, 2));
  }
 }
