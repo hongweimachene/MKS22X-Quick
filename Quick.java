@@ -60,14 +60,28 @@ public class Quick{
      return index;
    }
    if (start == end) {
-     if (pivot <= data[start]) {
+     if (pivot < data[start]) {
        data[pindex] = data[start - 1];
        data[start - 1] = pivot;
        index = start - 1;
-     } else {
+     }
+     else if (pivot > data[start]) {
        data[pindex] = data[start];
        data[start] = pivot;
        index = start;
+     }
+     else if (pivot == data[start]){
+       Random rand = new Random();
+	     int chance = rand.nextInt(2);
+	     if (chance == 0) {
+         data[pindex] = data[start - 1];
+         data[start - 1] = pivot;
+         index = start - 1;
+	     } else {
+         data[pindex] = data[start];
+         data[start] = pivot;
+         index = start;
+	     }
      }
    }
    return index;
@@ -87,7 +101,7 @@ public class Quick{
  }
 
  public static void main(String[] args) {
-   int[] ary1 = new int[] {8, 6 , 7 , 5, 3 ,0, 9};
+   int[] ary1 = new int[] {8, 6 , 7 , 5, 3 , 3 , 3,0, 9};
    // System.out.println(partition(ary1, 0, ary1.length-1));
    // for (int i = 0; i < ary1.length; i++) {
    //   System.out.print(ary1[i]+ " ");
