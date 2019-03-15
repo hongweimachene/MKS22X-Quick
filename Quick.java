@@ -28,11 +28,12 @@ public class Quick{
  */
  public static int partition (int [] data, int start, int end){
    Random rand = new Random();
-   int pick = rand.nextInt(data.length);
-   int index = 0;
+   int pick = rand.nextInt(end - start + 1) + start;
+   int index = start;
    int pivot = data[pick];
-   data[pick] = data[0];
-   data[0] = pivot;
+   data[pick] = data[start];
+   data[start] = pivot;
+   int pindex = start;
    while (start != end) {
      int value = data[start];
      if (value > pivot) {
@@ -49,11 +50,11 @@ public class Quick{
    }
    if (start == end) {
      if (pivot <= data[start]) {
-       data[0] = data[start - 1];
+       data[pindex] = data[start - 1];
        data[start - 1] = pivot;
        index = start - 1;
      } else {
-       data[0] = data[start];
+       data[pindex] = data[start];
        data[start] = pivot;
        index = start;
      }
@@ -80,12 +81,16 @@ public class Quick{
    // for (int i = 0; i < ary1.length; i++) {
    //   System.out.print(ary1[i]+ " ");
    // }
-   // System.out.println(" ");
-   // int[] ary = new int[] { 2, 10, 15, 23, 0,  5};
-   // System.out.println(quickSelect(ary, 2));
+   int[] ary = new int[] { 2, 10, 15, 23, 0,  5, 5, 7 ,8, 123, 44 , 32, 19, 0, 1, 123};
+   System.out.println(quickSelect(ary, 2));
    quickSort(ary1);
+   quickSort(ary);
    for (int i = 0; i < ary1.length; i++) {
      System.out.print(ary1[i]+ " ");
+   }
+   System.out.println("");
+   for (int i = 0; i < ary.length; i++) {
+     System.out.print(ary[i]+ " ");
    }
  }
 }
