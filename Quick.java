@@ -27,8 +27,7 @@ public class Quick{
  */
  public static int partition (int [] data, int start, int end){
    if (start == end) return start;
-   // Random rand = new Random();
-   // int pick = rand.nextInt(end - start + 1) + start;
+   //selecting median from start end and middle numbers
    int pick = 0;
    int middle = (start + end) / 2;
    if ((start >= middle && middle >= end) || (end >= middle && middle >= start)) {
@@ -40,23 +39,31 @@ public class Quick{
    else if ((start >= end && end >= middle) || (middle >= end && end >= start)) {
      pick = end;
    }
+   //index to return for pivot
    int index = start;
+   //swapping pivot with starting index
    int pivot = data[pick];
    data[pick] = data[start];
    data[start] = pivot;
+   //store original pivot index
    int pindex = start;
+   //offset start by 1 to start comparing
    start+=1;
    Random rand = new Random();
    while (start != end) {
+     //value being compared
      int value = data[start];
+     //when value is greater place at end, subtract end
      if (value > pivot) {
        data[start] = data[end];
        data[end] = value;
        end--;
      }
+     //when value is less move start forward
      else if (value < pivot) {
        start++;
      }
+     //to place 50% of duplicates on left and 50% on right
      else {
 	     int chance = rand.nextInt(2);
 	     if (chance == 0) {
@@ -68,9 +75,11 @@ public class Quick{
 	     }
      }
    }
+   //if pivot is less than value at start then place it at the index before start
    if (pivot < data[start]) {
      start--;
    }
+   //swap pivot with start 
    data[pindex] = data[start];
    data[start] = pivot;
    index = start;
