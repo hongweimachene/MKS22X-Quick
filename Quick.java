@@ -26,6 +26,7 @@ public class Quick{
  *@return the index of the final position of the pivot element.
  */
  public static int partition (int [] data, int start, int end){
+   if (start == end) return start;
    // Random rand = new Random();
    // int pick = rand.nextInt(end - start + 1) + start;
    int pick = 0;
@@ -44,6 +45,8 @@ public class Quick{
    data[pick] = data[start];
    data[start] = pivot;
    int pindex = start;
+   start+=1;
+   Random rand = new Random();
    while (start != end) {
      int value = data[start];
      if (value > pivot) {
@@ -51,42 +54,30 @@ public class Quick{
        data[end] = value;
        end--;
      }
-     if (value <= pivot) {
+     else if (value < pivot) {
        start++;
      }
-   }
-   if (start == 0 && end == 0) {
-     return index;
-   }
-   if (start == end) {
-     if (pivot < data[start]) {
-       data[pindex] = data[start - 1];
-       data[start - 1] = pivot;
-       index = start - 1;
-     }
-     else if (pivot > data[start]) {
-       data[pindex] = data[start];
-       data[start] = pivot;
-       index = start;
-     }
-     else if (pivot == data[start]){
-       Random rand = new Random();
+     else {
 	     int chance = rand.nextInt(2);
 	     if (chance == 0) {
-         data[pindex] = data[start - 1];
-         data[start - 1] = pivot;
-         index = start - 1;
+         data[start] = data[end];
+         data[end] = value;
+         end--;
 	     } else {
-         data[pindex] = data[start];
-         data[start] = pivot;
-         index = start;
+         start++;
 	     }
      }
    }
+   if (pivot < data[start]) {
+     start--;
+   }
+   data[pindex] = data[start];
+   data[start] = pivot;
+   index = start;
    return index;
  }
 
- 
+
 
  public static void quicksort(int[] data) {
    quicksort(data, 0, data.length-1);
