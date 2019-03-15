@@ -63,13 +63,27 @@ public class Quick{
      else if (value < pivot) {
        start++;
      }
+     else {
+       int chance = rand.nextInt(2);
+       if (chance == 0) {
+         data[start] = data[end];
+         data[end] = value;
+         end--;
+       } else {
+         start++;
+       }
+     }
    }
+   //once start = end, swap pivot to one index behind start if it is less than
    if (pivot < data[start]) {
      data[pindex] = data[start-1];
      data[start-1] = pivot;
+     pindex = start - 1;
+   } else {
+     data[pindex] = data[start];
+     data[start] = pivot;
    }
-   return start-1;
-
+   return pindex;
  }
 
  public static void quicksort(int[] data) {
