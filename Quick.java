@@ -1,9 +1,8 @@
 import java.util.Random;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Quick{
-  public static int quickSelect(int[] data, int k) {
+  public static int quickselect(int[] data, int k) {
     int kth = 0;
     int val = partition(data, 0, data.length-1);
     while (val != k) {
@@ -26,25 +25,34 @@ public class Quick{
  *4. all elements in range that are larger than the pivot element are placed after the pivot element.
  *@return the index of the final position of the pivot element.
  */
- public static int partition (int [] data, int start, int end){
-   // Random rand = new Random();
-   // int pick = rand.nextInt(end - start + 1) + start;
+ public static int partition(int[] data, int start, int end) {
+   //selecting median between start, end, and middle value
    int pick = 0;
    int middle = (start + end) / 2;
    if ((start >= middle && middle >= end) || (end >= middle && middle >= start)) {
-     pick = middle;
+    pick = middle;
    }
    else if ((middle >= start && start >= end) || (end >= start && start >= middle)) {
-     pick = start;
+    pick = start;
    }
    else if ((start >= end && end >= middle) || (middle >= end && end >= start)) {
-     pick = end;
+    pick = end;
    }
-   int index = start;
+
+   //value of pivot
    int pivot = data[pick];
+
+   //swap start with pivot
    data[pick] = data[start];
    data[start] = pivot;
+
+   //stores original start
    int pindex = start;
+
+   //offset start by 1 to start swapping
+   start += 1;
+
+   Random rand = new Random();
    while (start != end) {
      int value = data[start];
      if (value > pivot) {
@@ -52,70 +60,30 @@ public class Quick{
        data[end] = value;
        end--;
      }
-     if (value <= pivot) {
+     else if (value < pivot) {
        start++;
      }
    }
-   if (start == 0 && end == 0) {
-     return index;
+   if (pivot < data[start]) {
+     data[pindex] = data[start-1];
+     data[start-1] = pivot;
    }
-   if (start == end) {
-     if (pivot < data[start]) {
-       data[pindex] = data[start - 1];
-       data[start - 1] = pivot;
-       index = start - 1;
-     }
-     else if (pivot > data[start]) {
-       data[pindex] = data[start];
-       data[start] = pivot;
-       index = start;
-     }
-     else if (pivot == data[start]){
-       Random rand = new Random();
-	     int chance = rand.nextInt(2);
-	     if (chance == 0) {
-         data[pindex] = data[start - 1];
-         data[start - 1] = pivot;
-         index = start - 1;
-	     } else {
-         data[pindex] = data[start];
-         data[start] = pivot;
-         index = start;
-	     }
-     }
-   }
-   return index;
+   return start-1;
+
  }
 
- public static void quickSort(int[] data) {
-   quickSort(data, 0, data.length-1);
+ public static void quicksort(int[] data) {
+   quicksort(data, 0, data.length-1);
  }
 
- private static void quickSort(int[] data, int lo, int hi) {
+ private static void quicksort(int[] data, int lo, int hi) {
    if (lo >= hi) {
      return;
    }
    int pivot = partition(data, lo, hi);
-   quickSort(data, lo, pivot - 1);
-   quickSort(data, pivot + 1, hi);
+   quicksort(data, lo, pivot - 1);
+   quicksort(data, pivot + 1, hi);
  }
 
- public static void main(String[] args) {
-   int[] ary1 = new int[] {8, 6 , 7 , 5, 3 , 3 , 3,0, 9};
-   // System.out.println(partition(ary1, 0, ary1.length-1));
-   // for (int i = 0; i < ary1.length; i++) {
-   //   System.out.print(ary1[i]+ " ");
-   // }
-   int[] ary = new int[] { 2, 10, 15, 23, 0,  5, 5, 7, 142, 32, 45, 142, 23 , 34, 82, 45, 76, 142, 249, 249};
-   System.out.println(quickSelect(ary, 19));
-   quickSort(ary1);
-   quickSort(ary);
-   for (int i = 0; i < ary1.length; i++) {
-     System.out.print(ary1[i]+ " ");
-   }
-   System.out.println("");
-   for (int i = 0; i < ary.length; i++) {
-     System.out.print(ary[i]+ " ");
-   }
- }
+
 }
