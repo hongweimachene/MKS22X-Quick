@@ -27,8 +27,19 @@ public class Quick{
  *@return the index of the final position of the pivot element.
  */
  public static int partition (int [] data, int start, int end){
-   Random rand = new Random();
-   int pick = rand.nextInt(end - start + 1) + start;
+   // Random rand = new Random();
+   // int pick = rand.nextInt(end - start + 1) + start;
+   int pick = 0;
+   int middle = (start + end) / 2;
+   if ((start >= middle && middle >= end) || (end >= middle && middle >= start)) {
+     pick = middle;
+   }
+   else if ((middle >= start && start >= end) || (end >= start && start >= middle)) {
+     pick = start;
+   }
+   else if ((start >= end && end >= middle) || (middle >= end && end >= start)) {
+     pick = end;
+   }
    int index = start;
    int pivot = data[pick];
    data[pick] = data[start];
@@ -81,8 +92,8 @@ public class Quick{
    // for (int i = 0; i < ary1.length; i++) {
    //   System.out.print(ary1[i]+ " ");
    // }
-   int[] ary = new int[] { 2, 10, 15, 23, 0,  5, 5, 7 ,8, 123, 44 , 32, 19, 0, 1, 123};
-   System.out.println(quickSelect(ary, 2));
+   int[] ary = new int[] { 2, 10, 15, 23, 0,  5, 5, 7, 142, 32, 45, 142, 23 , 34, 82, 45, 76, 142, 249, 249};
+   System.out.println(quickSelect(ary, 19));
    quickSort(ary1);
    quickSort(ary);
    for (int i = 0; i < ary1.length; i++) {
